@@ -32,16 +32,26 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
-from ddprobe_mall.apps.users.models import User
+from apps.users.models import User
 
 # Getting the data from HTTP request => need urls.py to unpack the request
 class UsernameCountView(View):
     def get(self,request,username):
-        # 1.  接收用户名，对这个用户名进行一下判断
-        # Implimented in utils.converter.py
-        # if not re.match('[a-zA-Z0-9_-]{5,20}',username):
-        #     return JsonResponse({'code':200,'errmsg':'用户名不满足需求'})
+        """
+         1.根据用户名查询数量
+         2.返回个数信息
+        """
         # 2.  根据用户名查询数据库
         count=User.objects.filter(username=username).count()
         # 3.  返回响应
         return JsonResponse({'code':0,'count':count,'errmsg':'ok'})
+    
+class RegisterMobileCountView(View):
+
+    def get(self,request,mobile):
+        """
+         1.根据用户名查询数量
+         2.返回个数信息
+        """
+        # TODO finish this
+        pass
