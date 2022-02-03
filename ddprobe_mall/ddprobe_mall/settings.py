@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-DB_SETTING_PATH = 'ddprobe_mall/utils/databaseSettings.json'
+DB_SETTING_PATH = '/root/project/Django_project/ddprobe_mall/utils/databaseSettings.json'
 DB_NAME, DB_USER, DB_SECRET ='', '', ''
 
 with open(DB_SETTING_PATH) as json_file:
@@ -32,12 +32,10 @@ with open(DB_SETTING_PATH) as json_file:
     DB_SECRET = dbSetting['Secret']
     
 
-SECRET_KEY = 'django-insecure-m8ncbv_jds#49qj$$n^szlcqug08b7mn14d9-21x2ftkadk(!!'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.meiduo.site', '127.0.0.1']
 
 
 # Application definition
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -167,6 +166,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Logging set up
 # Extracted from https://docs.djangoproject.com/en/4.0/topics/logging/ final complex setup
 
+
+###########LOGGING##############
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -228,3 +229,12 @@ LOGGING = {
         # }
     }
 }
+
+
+
+########################################
+# Django allows you to override the default user model by providing a value for 
+# the AUTH_USER_MODEL setting that references a custom model:
+# This dotted pair describes the label of the Django app (which must be in your INSTALLED_APPS),
+# and the name of the Django model that you wish to use as your user model.
+AUTH_USER_MODEL = 'users.User'
