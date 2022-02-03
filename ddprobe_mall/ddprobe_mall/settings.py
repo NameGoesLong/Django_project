@@ -48,9 +48,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.users',
+    # include the corsheaders to allow the frontend to access backend using cors
+    'corsheaders',
 ]
 
+# https://github.com/adamchainz/django-cors-headers#setup
+# CorsMiddleware should be placed as high as possible,
+# especially before any middleware that can generate responses such as
+# Django's CommonMiddleware or Whitenoise's WhiteNoiseMiddleware. 
+# If it is not before, it will not be able to add the CORS headers to these responses.
 MIDDLEWARE = [
+    # Set the middleware of our CORS
+    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -238,3 +248,17 @@ LOGGING = {
 # This dotted pair describes the label of the Django app (which must be in your INSTALLED_APPS),
 # and the name of the Django model that you wish to use as your user model.
 AUTH_USER_MODEL = 'users.User'
+
+
+#####CORS#######################
+
+# CORS  白名单
+# This is used to allow the frontend to access the backend
+# https://github.com/adamchainz/django-cors-headers#configuration
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    'http://www.meiduo.site:8080',
+    'http://www.meiduo.site:8000'
+)
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
